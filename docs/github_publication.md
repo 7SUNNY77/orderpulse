@@ -56,7 +56,7 @@ gh repo edit <GITHUB_USERNAME>/orderpulse --add-topic python,machine-learning,da
    (`requirements-lock.txt` собран на Windows), исправьте lock-файл, а не тесты.
 2. README открывается без битых картинок, ссылки на `reports/` и `docs/` работают.
 3. В файлах репозитория нет `data/`, `*.duckdb`, `*.parquet`, `*.cbm`, `*.joblib`.
-4. Чистый клон на другой машине: шаги раздела 3 README, затем `python -m pytest`.
+4. Чистый клон на другой машине: шаги раздела «Как запустить» README, затем `python -m pytest`.
 5. Бейдж CI добавляйте в README только после первого зелёного запуска:
    `![CI](https://github.com/<GITHUB_USERNAME>/orderpulse/actions/workflows/ci.yml/badge.svg)`.
 
@@ -109,6 +109,6 @@ git config user.email "<EMAIL>"
 test ранее просмотрен. Это портфолио-проект, не production-система.
 
 ### Данные и лицензия
-Данные Olist (CC BY-NC-SA 4.0) не входят в репозиторий — см. README, «Получение данных».
+Данные Olist (CC BY-NC-SA 4.0) не входят в репозиторий — см. README, «Где взять данные».
 Код — под лицензией MIT.
 ```

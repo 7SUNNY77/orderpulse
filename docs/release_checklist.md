@@ -153,3 +153,7 @@ Linux/macOS локально, workflow GitHub Actions — он ещё не за�
 **CI** (`.github/workflows/ci.yml`): push и pull_request, Ubuntu и Windows, Python 3.11. Шаги: установка
 по lock-файлу, проверка импорта и CLI, `pytest -m "not integration"` (55 тестов), `pytest -m integration`
 (30 тестов: синтетический pipeline и страницы AppTest). Olist не скачивается, credentials не нужны.
+
+**Дополнительные скриншоты** (после публикации): `overview_charts.png`, `segments.png`, `queue_outcomes.png`,
+`quality_queue_size.png` — сняты в headless Edge с реального приложения на полном наборе Olist и обрезаны до
+нужного блока; данные и модели те же. README переписан простым языком, числа не менялись.

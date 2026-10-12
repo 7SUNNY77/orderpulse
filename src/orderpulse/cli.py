@@ -87,7 +87,7 @@ def _setup_hint(exc: Exception, cfg) -> str | None:
         missing = str(exc).count("missing file")
         if missing:
             return (f"{missing} Olist CSV file(s) not found in {cfg.raw_dir}. Download the dataset "
-                    "(see README, 'Получение данных') and put the CSV there, or pass --raw-dir <folder>.")
+                    "(see README, 'Где взять данные') and put the CSV there, or pass --raw-dir <folder>.")
         return f"input data contract violated: {exc}"
     if isinstance(exc, (FileNotFoundError, duckdb.IOException)):
         return (f"{exc}. Earlier steps have not been run: build everything with "
