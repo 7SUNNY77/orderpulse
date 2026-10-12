@@ -1,0 +1,56 @@
+# Time splits by prediction_time = order_approved_at (half-open intervals [start, end)).
+# label_available_before: an order's label may be used only if the order was
+# actually delivered strictly before this moment (point-in-time label availability).
+# Gaps between periods (Dec 2017, Mar 2018) are embargo months, see reports/decisions.md.
+splits:
+  train:
+    start: "2017-01-01"
+    end: "2017-12-01"
+    label_available_before: "2018-01-01"
+  validation:
+    start: "2018-01-01"
+    end: "2018-03-01"
+    label_available_before: "2018-04-01"
+  test:
+    start: "2018-04-01"
+    end: "2018-07-01"
+    label_available_before: "2018-09-03"
+
+seed: 42
+feature_version: "fv1"
+
+# Operational policy: a manager reviews K orders per approval day.
+policy:
+  daily_k: 50
+  k_list: [50, 100, 500, 1000]   # top-K over the whole period
+  daily_k_list: [10, 20, 50]
+
+# Short-promise rule baseline: score = -promised_days; the flagging threshold
+# is chosen on validation to match the share flagged by the daily top-K policy.
+rule_baseline:
+  feature: promised_days
+
+logreg:
+  C: 1.0
+  max_iter: 2000
+
+catboost:
+  iterations: 2000
+  early_stopping_rounds: 100
+  loss_function: Logloss
+  # Early stopping on a ranking metric: validation has a higher late rate than train,
+  # so Logloss mostly reflects the base-rate shift (observed: stop at ~35 iterations).
+  eval_metric: PRAUC
+  # Small grid, selected by Average Precision on validation.
+  grid:
+    - { depth: 4, learning_rate: 0.05, l2_leaf_reg: 3 }
+    - { depth: 6, learning_rate: 0.05, l2_leaf_reg: 3 }
+    - { depth: 8, learning_rate: 0.05, l2_leaf_reg: 5 }
+
+ui:
+  min_segment_size: 30
+  # Default daily queue size in the UI, chosen on development windows (reports/reliability_report.md).
+  default_queue_k: 20
+  # Release v1.0 (owner decision): default model of the queue and the order card.
+  # CatBoost v1 stays available for comparison. Model artifacts are unchanged.
+  default_model: logreg

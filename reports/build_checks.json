@@ -1,0 +1,134 @@
+{
+  "built_at": "2026-10-12T22:21:48+00:00",
+  "data_fingerprint": "4179f0f63056937d",
+  "checks": [
+    {
+      "check": "mart_orders_rows",
+      "ok": true,
+      "actual": "99441",
+      "expected": "99441",
+      "description": "mart_orders has exactly as many rows as source orders"
+    },
+    {
+      "check": "mart_orders_unique_order_id",
+      "ok": true,
+      "actual": "0",
+      "expected": "0",
+      "description": "no duplicated order_id in mart_orders"
+    },
+    {
+      "check": "items_value_reconciled",
+      "ok": true,
+      "actual": "13591643.70",
+      "expected": "13591643.70",
+      "description": "sum of item prices is identical before/after aggregation (no multiplication)"
+    },
+    {
+      "check": "freight_value_reconciled",
+      "ok": true,
+      "actual": "2251909.54",
+      "expected": "2251909.54",
+      "description": "sum of freight is identical before/after aggregation"
+    },
+    {
+      "check": "payment_value_reconciled",
+      "ok": true,
+      "actual": "16008872.12",
+      "expected": "16008872.12",
+      "description": "sum of payments of known orders is identical before/after aggregation"
+    },
+    {
+      "check": "n_items_reconciled",
+      "ok": true,
+      "actual": "112650",
+      "expected": "112650",
+      "description": "number of items is preserved"
+    },
+    {
+      "check": "orders_with_review",
+      "ok": true,
+      "actual": "98673",
+      "expected": "98673",
+      "description": "each reviewed order has exactly one canonical review"
+    },
+    {
+      "check": "mart_order_items_rows",
+      "ok": true,
+      "actual": "112650",
+      "expected": "112650",
+      "description": "one row per item"
+    },
+    {
+      "check": "mart_seller_orders_rows",
+      "ok": true,
+      "actual": "100010",
+      "expected": "100010",
+      "description": "one row per (seller, order)"
+    },
+    {
+      "check": "mart_seller_orders_items_value",
+      "ok": true,
+      "actual": "13591643.70",
+      "expected": "13591643.70",
+      "description": "seller-order item values sum to total item value"
+    },
+    {
+      "check": "stg_customers_unique_customer_id",
+      "ok": true,
+      "actual": "0",
+      "expected": "0",
+      "description": "dimension stg_customers is unique by customer_id (joins cannot multiply rows)"
+    },
+    {
+      "check": "stg_sellers_unique_seller_id",
+      "ok": true,
+      "actual": "0",
+      "expected": "0",
+      "description": "dimension stg_sellers is unique by seller_id (joins cannot multiply rows)"
+    },
+    {
+      "check": "stg_products_unique_product_id",
+      "ok": true,
+      "actual": "0",
+      "expected": "0",
+      "description": "dimension stg_products is unique by product_id (joins cannot multiply rows)"
+    },
+    {
+      "check": "stg_geo_zip_unique_zip",
+      "ok": true,
+      "actual": "0",
+      "expected": "0",
+      "description": "dimension stg_geo_zip is unique by zip (joins cannot multiply rows)"
+    },
+    {
+      "check": "features_rows",
+      "ok": true,
+      "actual": "99281",
+      "expected": "99281",
+      "description": "one feature row per approved order"
+    },
+    {
+      "check": "features_unique_order_id",
+      "ok": true,
+      "actual": "0",
+      "expected": "0",
+      "description": "feature rows are unique by order_id"
+    },
+    {
+      "check": "ml_labels_rows",
+      "ok": true,
+      "actual": "99441",
+      "expected": "99441",
+      "description": "one label row per order"
+    }
+  ],
+  "payments_reconciliation": {
+    "comparable": 98665,
+    "matched": 98362,
+    "payment_higher": 264,
+    "payment_lower": 39,
+    "total_difference": 2870.39,
+    "orders_without_payment": 1,
+    "orders_without_items": 775
+  }
+}

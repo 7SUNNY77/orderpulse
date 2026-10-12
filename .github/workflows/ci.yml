@@ -1,0 +1,47 @@
+# CI: install the project and run the test suite on synthetic data.
+# Does not download Olist, needs no credentials and never trains on the full dataset.
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    name: tests (${{ matrix.os }}, Python 3.11)
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    env:
+      MPLBACKEND: Agg
+      PYTHONUTF8: "1"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements-lock.txt
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-lock.txt
+          python -m pip install -e ".[dev]"
+
+      - name: Smoke test (import and CLI)
+        run: |
+          python -c "import orderpulse; print(orderpulse.__version__)"
+          python -m orderpulse --help
+
+      - name: Unit tests (synthetic data)
+        run: python -m pytest -m "not integration" -q
+
+      - name: Integration tests (synthetic pipeline + Streamlit AppTest)
+        run: python -m pytest -m integration -q

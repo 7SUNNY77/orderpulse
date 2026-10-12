@@ -1,0 +1,306 @@
+{
+  "generated_at": "2026-10-12T21:54:54+00:00",
+  "data_fingerprint": "4179f0f63056937d",
+  "mvp_v1_model_versions": {
+    "constant": "constant-fv1-599ed037",
+    "rule_short_promise": "rule_short_promise-fv1-a646aa2a",
+    "logreg": "logreg-fv1-77259041",
+    "catboost": "catboost-fv1-9f3d2c8e"
+  },
+  "reliability_config": {
+    "windows": {
+      "W1": {
+        "fit": {
+          "start": "2017-01-01",
+          "end": "2017-07-01",
+          "label_cutoff": "2017-08-01"
+        },
+        "es": {
+          "start": "2017-08-01",
+          "end": "2017-09-01",
+          "label_cutoff": "2017-10-01"
+        },
+        "eval": {
+          "start": "2017-10-01",
+          "end": "2017-12-01"
+        }
+      },
+      "W2": {
+        "fit": {
+          "start": "2017-01-01",
+          "end": "2017-09-01",
+          "label_cutoff": "2017-10-01"
+        },
+        "es": {
+          "start": "2017-10-01",
+          "end": "2017-11-01",
+          "label_cutoff": "2017-12-01"
+        },
+        "eval": {
+          "start": "2017-12-01",
+          "end": "2018-02-01"
+        }
+      },
+      "W3": {
+        "fit": {
+          "start": "2017-01-01",
+          "end": "2017-11-01",
+          "label_cutoff": "2017-12-01"
+        },
+        "es": {
+          "start": "2017-12-01",
+          "end": "2018-01-01",
+          "label_cutoff": "2018-02-01"
+        },
+        "eval": {
+          "start": "2018-02-01",
+          "end": "2018-04-01"
+        }
+      }
+    },
+    "variants": {
+      "A": [],
+      "B": [
+        "approval_month"
+      ],
+      "C": [
+        "approval_month",
+        "approval_dow",
+        "approval_hour",
+        "purchase_dow"
+      ]
+    },
+    "catboost_params": {
+      "depth": 4,
+      "learning_rate": 0.05,
+      "l2_leaf_reg": 3,
+      "iterations": 2000,
+      "early_stopping_rounds": 100,
+      "loss_function": "Logloss",
+      "eval_metric": "PRAUC"
+    },
+    "k_list": [
+      5,
+      10,
+      20,
+      50,
+      100
+    ],
+    "seed": 42,
+    "random_mc": {
+      "reps": 500,
+      "seed": 2024
+    },
+    "bootstrap": {
+      "reps": 1000,
+      "seed": 7,
+      "blocks": [
+        "day",
+        "week"
+      ],
+      "k_list": [
+        10,
+        20,
+        50
+      ]
+    },
+    "calibration": {
+      "model_window": "W2",
+      "calib": {
+        "start": "2017-12-01",
+        "end": "2018-01-01",
+        "label_cutoff": "2018-02-01"
+      },
+      "check": {
+        "start": "2018-02-01",
+        "end": "2018-04-01"
+      },
+      "n_bins": 10
+    }
+  },
+  "test_status": "original test (approvals 2018-04-01..2018-06-30) already viewed; used only for descriptive audit of fixed MVP v1 predictions",
+  "dev_windows": {
+    "W1": {
+      "spec": {
+        "fit": {
+          "start": "2017-01-01",
+          "end": "2017-07-01",
+          "label_cutoff": "2017-08-01"
+        },
+        "es": {
+          "start": "2017-08-01",
+          "end": "2017-09-01",
+          "label_cutoff": "2017-10-01"
+        },
+        "eval": {
+          "start": "2017-10-01",
+          "end": "2017-12-01"
+        }
+      },
+      "checks": {
+        "fit": {
+          "purpose": "fit",
+          "cutoff": "2017-08-01 00:00:00",
+          "rows": 13829,
+          "max_label_available_at": "2017-07-31 18:22:54",
+          "max_prediction_time": "2017-06-30 23:30:20",
+          "excluded_label_not_yet_available": 45,
+          "late": 493
+        },
+        "es": {
+          "purpose": "es",
+          "cutoff": "2017-10-01 00:00:00",
+          "rows": 4202,
+          "max_label_available_at": "2017-09-29 19:35:44",
+          "max_prediction_time": "2017-08-31 23:50:08",
+          "excluded_label_not_yet_available": 15,
+          "late": 106
+        },
+        "eval": {
+          "rows": 11590,
+          "late": 1058,
+          "label_rule": "matured: delivered before data_cutoff 2018-09-03",
+          "would_be_excluded_if_labels_before_2018_04_01": 3
+        }
+      }
+    },
+    "W2": {
+      "spec": {
+        "fit": {
+          "start": "2017-01-01",
+          "end": "2017-09-01",
+          "label_cutoff": "2017-10-01"
+        },
+        "es": {
+          "start": "2017-10-01",
+          "end": "2017-11-01",
+          "label_cutoff": "2017-12-01"
+        },
+        "eval": {
+          "start": "2017-12-01",
+          "end": "2018-02-01"
+        }
+      },
+      "checks": {
+        "fit": {
+          "purpose": "fit",
+          "cutoff": "2017-10-01 00:00:00",
+          "rows": 21898,
+          "max_label_available_at": "2017-09-29 19:35:44",
+          "max_prediction_time": "2017-08-31 23:50:08",
+          "excluded_label_not_yet_available": 20,
+          "late": 745
+        },
+        "es": {
+          "purpose": "es",
+          "cutoff": "2017-12-01 00:00:00",
+          "rows": 4408,
+          "max_label_available_at": "2017-11-30 21:04:02",
+          "max_prediction_time": "2017-10-31 23:15:23",
+          "excluded_label_not_yet_available": 33,
+          "late": 155
+        },
+        "eval": {
+          "rows": 12666,
+          "late": 843,
+          "label_rule": "matured: delivered before data_cutoff 2018-09-03",
+          "would_be_excluded_if_labels_before_2018_04_01": 25
+        }
+      }
+    },
+    "W3": {
+      "spec": {
+        "fit": {
+          "start": "2017-01-01",
+          "end": "2017-11-01",
+          "label_cutoff": "2017-12-01"
+        },
+        "es": {
+          "start": "2017-12-01",
+          "end": "2018-01-01",
+          "label_cutoff": "2018-02-01"
+        },
+        "eval": {
+          "start": "2018-02-01",
+          "end": "2018-04-01"
+        }
+      },
+      "checks": {
+        "fit": {
+          "purpose": "fit",
+          "cutoff": "2017-12-01 00:00:00",
+          "rows": 30483,
+          "max_label_available_at": "2017-11-30 21:04:02",
+          "max_prediction_time": "2017-10-31 23:15:23",
+          "excluded_label_not_yet_available": 38,
+          "late": 1098
+        },
+        "es": {
+          "purpose": "es",
+          "cutoff": "2018-02-01 00:00:00",
+          "rows": 5605,
+          "max_label_available_at": "2018-01-31 23:45:08",
+          "max_prediction_time": "2017-12-31 23:32:40",
+          "excluded_label_not_yet_available": 70,
+          "late": 381
+        },
+        "eval": {
+          "rows": 13616,
+          "late": 2249,
+          "label_rule": "matured: delivered before data_cutoff 2018-09-03",
+          "would_be_excluded_if_labels_before_2018_04_01": 3749
+        }
+      }
+    }
+  },
+  "v1_test": {
+    "rows": 19654,
+    "days": 88,
+    "ranking": [
+      {
+        "model": "catboost",
+        "n": 19654,
+        "late": 827,
+        "late_rate": 0.042077948509209324,
+        "ap": 0.13853875748679073,
+        "roc_auc": 0.7479061079854634
+      },
+      {
+        "model": "logreg",
+        "n": 19654,
+        "late": 827,
+        "late_rate": 0.042077948509209324,
+        "ap": 0.12945928605177714,
+        "roc_auc": 0.7525386275043388
+      },
+      {
+        "model": "rule_short_promise",
+        "n": 19654,
+        "late": 827,
+        "late_rate": 0.042077948509209324,
+        "ap": 0.05277030406542578,
+        "roc_auc": 0.5922574213408424
+      },
+      {
+        "model": "constant",
+        "n": 19654,
+        "late": 827,
+        "late_rate": 0.042077948509209324,
+        "ap": 0.042077948509209324,
+        "roc_auc": 0.5
+      }
+    ],
+    "post_cutoff_sensitivity": {
+      "excluded_post_cutoff_orders": 4,
+      "excluded_post_cutoff_late": 4,
+      "catboost_ap_with": 0.1384691640770894,
+      "catboost_ap_without": 0.13853875748679073,
+      "catboost_p50_with": 0.09022727272727273,
+      "catboost_p50_without": 0.08954545454545454,
+      "logreg_ap_with": 0.12922096108416925,
+      "logreg_ap_without": 0.12945928605177714,
+      "logreg_p50_with": 0.08590909090909091,
+      "logreg_p50_without": 0.08568181818181818
+    }
+  }
+}

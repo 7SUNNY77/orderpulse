@@ -1,0 +1,139 @@
+[
+  {
+    "experiment": "v1_viewed_test_audit",
+    "seconds": 25.3,
+    "rows": 19654,
+    "days": 88
+  },
+  {
+    "experiment": "dev_W1_A_catboost",
+    "seconds": 20.95,
+    "fit_rows": 13829,
+    "es_rows": 4202,
+    "eval_rows": 11590
+  },
+  {
+    "experiment": "dev_W1_A_logreg",
+    "seconds": 0.33,
+    "fit_rows": 13829,
+    "es_rows": 4202,
+    "eval_rows": 11590
+  },
+  {
+    "experiment": "dev_W1_B_catboost",
+    "seconds": 10.78,
+    "fit_rows": 13829,
+    "es_rows": 4202,
+    "eval_rows": 11590
+  },
+  {
+    "experiment": "dev_W1_B_logreg",
+    "seconds": 0.27,
+    "fit_rows": 13829,
+    "es_rows": 4202,
+    "eval_rows": 11590
+  },
+  {
+    "experiment": "dev_W1_C_catboost",
+    "seconds": 5.6,
+    "fit_rows": 13829,
+    "es_rows": 4202,
+    "eval_rows": 11590
+  },
+  {
+    "experiment": "dev_W1_C_logreg",
+    "seconds": 0.23,
+    "fit_rows": 13829,
+    "es_rows": 4202,
+    "eval_rows": 11590
+  },
+  {
+    "experiment": "dev_W2_A_catboost",
+    "seconds": 18.68,
+    "fit_rows": 21898,
+    "es_rows": 4408,
+    "eval_rows": 12666
+  },
+  {
+    "experiment": "dev_W2_A_logreg",
+    "seconds": 0.41,
+    "fit_rows": 21898,
+    "es_rows": 4408,
+    "eval_rows": 12666
+  },
+  {
+    "experiment": "dev_W2_B_catboost",
+    "seconds": 7.46,
+    "fit_rows": 21898,
+    "es_rows": 4408,
+    "eval_rows": 12666
+  },
+  {
+    "experiment": "dev_W2_B_logreg",
+    "seconds": 0.41,
+    "fit_rows": 21898,
+    "es_rows": 4408,
+    "eval_rows": 12666
+  },
+  {
+    "experiment": "dev_W2_C_catboost",
+    "seconds": 25.22,
+    "fit_rows": 21898,
+    "es_rows": 4408,
+    "eval_rows": 12666
+  },
+  {
+    "experiment": "dev_W2_C_logreg",
+    "seconds": 0.38,
+    "fit_rows": 21898,
+    "es_rows": 4408,
+    "eval_rows": 12666
+  },
+  {
+    "experiment": "dev_W3_A_catboost",
+    "seconds": 21.32,
+    "fit_rows": 30483,
+    "es_rows": 5605,
+    "eval_rows": 13616
+  },
+  {
+    "experiment": "dev_W3_A_logreg",
+    "seconds": 0.51,
+    "fit_rows": 30483,
+    "es_rows": 5605,
+    "eval_rows": 13616
+  },
+  {
+    "experiment": "dev_W3_B_catboost",
+    "seconds": 9.47,
+    "fit_rows": 30483,
+    "es_rows": 5605,
+    "eval_rows": 13616
+  },
+  {
+    "experiment": "dev_W3_B_logreg",
+    "seconds": 0.54,
+    "fit_rows": 30483,
+    "es_rows": 5605,
+    "eval_rows": 13616
+  },
+  {
+    "experiment": "dev_W3_C_catboost",
+    "seconds": 8.65,
+    "fit_rows": 30483,
+    "es_rows": 5605,
+    "eval_rows": 13616
+  },
+  {
+    "experiment": "dev_W3_C_logreg",
+    "seconds": 0.51,
+    "fit_rows": 30483,
+    "es_rows": 5605,
+    "eval_rows": 13616
+  },
+  {
+    "experiment": "calibration_feasibility",
+    "calib_rows": 5605,
+    "check_rows": 13616
+  }
+]

@@ -1,0 +1,40 @@
+# Environment
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Source data (CC BY-NC-SA 4.0, download separately — never commit)
+data/*.csv
+data/*.zip
+data/raw/
+data/processed/
+*.duckdb
+*.duckdb.wal
+
+# Generated artifacts (rebuild with `python -m orderpulse pipeline`)
+artifacts/*
+!artifacts/.gitkeep
+
+# Local / OS / editors
+.streamlit/secrets.toml
+.env
+*.tmp
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Experiments: keep small aggregated CSV/JSON/PNG and reports; never order-level predictions or models
+experiments/**/*.parquet
+experiments/**/*.cbm
+experiments/**/*.joblib
+experiments/**/dev_predictions/
+# Local MVP v1 snapshot (models, predictions, sha256 manifest) — kept on the author's machine only
+experiments/reliability_v2/mvp_v1_snapshot/

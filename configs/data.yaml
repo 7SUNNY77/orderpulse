@@ -1,0 +1,31 @@
+# Data locations. Relative paths are resolved from the project root.
+# The original CSVs are read in place and never modified.
+raw_dir: data
+processed_dir: data/processed
+raw_db: data/processed/raw.duckdb
+warehouse_db: data/processed/warehouse.duckdb
+reports_dir: reports
+artifacts_dir: artifacts
+
+files:
+  orders: olist_orders_dataset.csv
+  order_items: olist_order_items_dataset.csv
+  order_payments: olist_order_payments_dataset.csv
+  order_reviews: olist_order_reviews_dataset.csv
+  customers: olist_customers_dataset.csv
+  sellers: olist_sellers_dataset.csv
+  products: olist_products_dataset.csv
+  geolocation: olist_geolocation_dataset.csv
+  category_translation: product_category_name_translation.csv
+
+# Effective snapshot of the dataset: after this date the flow of deliveries
+# and purchases practically stops (see reports/data_quality.md, reports/decisions.md).
+# Outcomes are treated as observable only strictly before this timestamp.
+data_cutoff: "2018-09-03"
+
+# Approximate bounding box of Brazil for geolocation sanity checks.
+geo_bounds:
+  lat_min: -34.0
+  lat_max: 6.0
+  lng_min: -75.0
+  lng_max: -34.0

@@ -1,0 +1,48 @@
+# Reliability & Queue Evaluation (experiments/reliability_v2).
+# All windows lie strictly BEFORE the original test (approvals from 2018-04-01),
+# which has already been viewed and is used only for descriptive audit of MVP v1.
+#
+# Each development backtest window (half-open [start, end), by approval time):
+#   fit:  model fitting;   labels must be observed before fit.label_cutoff
+#   es:   early stopping;  labels must be observed before es.label_cutoff (= eval start)
+#   eval: evaluation;      labels: matured outcomes (delivered before data_cutoff),
+#                           all eval orders are from before the original test.
+# One-month gaps (embargo) separate fit -> es -> eval.
+windows:
+  W1:
+    fit:  {start: "2017-01-01", end: "2017-07-01", label_cutoff: "2017-08-01"}
+    es:   {start: "2017-08-01", end: "2017-09-01", label_cutoff: "2017-10-01"}
+    eval: {start: "2017-10-01", end: "2017-12-01"}
+  W2:
+    fit:  {start: "2017-01-01", end: "2017-09-01", label_cutoff: "2017-10-01"}
+    es:   {start: "2017-10-01", end: "2017-11-01", label_cutoff: "2017-12-01"}
+    eval: {start: "2017-12-01", end: "2018-02-01"}
+  W3:
+    fit:  {start: "2017-01-01", end: "2017-11-01", label_cutoff: "2017-12-01"}
+    es:   {start: "2017-12-01", end: "2018-01-01", label_cutoff: "2018-02-01"}
+    eval: {start: "2018-02-01", end: "2018-04-01"}
+
+# Calendar-feature ablation (same params, same rows, same seed in every window).
+variants:
+  A: []                                                         # current fv1
+  B: [approval_month]
+  C: [approval_month, approval_dow, approval_hour, purchase_dow] # all calendar features of approval/purchase
+# Not removed in C (operational durations, not calendar positions): promised_days, hours_to_approval.
+
+# Fixed CatBoost parameters = those selected for MVP v1 (no new search).
+catboost_params: {depth: 4, learning_rate: 0.05, l2_leaf_reg: 3, iterations: 2000,
+                  early_stopping_rounds: 100, loss_function: Logloss, eval_metric: PRAUC}
+
+k_list: [5, 10, 20, 50, 100]
+seed: 42
+random_mc: {reps: 500, seed: 2024}
+bootstrap: {reps: 1000, seed: 7, blocks: [day, week], k_list: [10, 20, 50]}
+
+# Calibration feasibility: model fitted in window W2, sigmoid calibrator fitted on
+# calib (labels observed before calib.label_cutoff = moment of application),
+# evaluated on a later, non-overlapping window with matured labels.
+calibration:
+  model_window: W2
+  calib: {start: "2017-12-01", end: "2018-01-01", label_cutoff: "2018-02-01"}
+  check: {start: "2018-02-01", end: "2018-04-01"}
+  n_bins: 10

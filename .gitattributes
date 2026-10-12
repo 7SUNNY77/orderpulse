@@ -1,0 +1,4 @@
+# Store text files with LF in the repository (reports and CSV are generated on Windows with CRLF)
+* text=auto eol=lf
+*.png binary
+*.ps1 text eol=crlf

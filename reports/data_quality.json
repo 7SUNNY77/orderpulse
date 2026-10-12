@@ -1,0 +1,1019 @@
+{
+  "generated_at": "2026-10-12T22:21:37+00:00",
+  "data_fingerprint": "4179f0f63056937d",
+  "row_counts": {
+    "orders": 99441,
+    "order_items": 112650,
+    "order_payments": 103886,
+    "order_reviews": 99224,
+    "customers": 99441,
+    "sellers": 3095,
+    "products": 32951,
+    "geolocation": 1000163,
+    "category_translation": 71
+  },
+  "summary": {
+    "critical": 0,
+    "warning": 17,
+    "expected": 11,
+    "ok": 36
+  },
+  "findings": [
+    {
+      "section": "keys",
+      "check": "orders: duplicates of (order_id)",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 99441,
+      "share": 0.0,
+      "note": "primary key of the table grain",
+      "action": "pipeline stops if > 0"
+    },
+    {
+      "section": "keys",
+      "check": "customers: duplicates of (customer_id)",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 99441,
+      "share": 0.0,
+      "note": "primary key of the table grain",
+      "action": "pipeline stops if > 0"
+    },
+    {
+      "section": "keys",
+      "check": "sellers: duplicates of (seller_id)",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 3095,
+      "share": 0.0,
+      "note": "primary key of the table grain",
+      "action": "pipeline stops if > 0"
+    },
+    {
+      "section": "keys",
+      "check": "products: duplicates of (product_id)",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 32951,
+      "share": 0.0,
+      "note": "primary key of the table grain",
+      "action": "pipeline stops if > 0"
+    },
+    {
+      "section": "keys",
+      "check": "order_items: duplicates of (order_id, order_item_id)",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 112650,
+      "share": 0.0,
+      "note": "primary key of the table grain",
+      "action": "pipeline stops if > 0"
+    },
+    {
+      "section": "keys",
+      "check": "order_payments: duplicates of (order_id, payment_sequential)",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 103886,
+      "share": 0.0,
+      "note": "primary key of the table grain",
+      "action": "pipeline stops if > 0"
+    },
+    {
+      "section": "keys",
+      "check": "order_reviews: duplicates of (review_id, order_id)",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 99224,
+      "share": 0.0,
+      "note": "primary key of the table grain",
+      "action": "pipeline stops if > 0"
+    },
+    {
+      "section": "keys",
+      "check": "category_translation: duplicated category name",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 71,
+      "share": 0.0,
+      "note": "dimension must be unique",
+      "action": "first English name kept"
+    },
+    {
+      "section": "keys",
+      "check": "order_reviews: review_id linked to >1 order",
+      "severity": "expected",
+      "count": 814,
+      "denominator": 99224,
+      "share": 0.008204,
+      "note": "review_id is not unique on its own; the grain is (review_id, order_id)",
+      "action": ""
+    },
+    {
+      "section": "keys",
+      "check": "orders with more than one review",
+      "severity": "expected",
+      "count": 547,
+      "denominator": 99441,
+      "share": 0.005501,
+      "note": "canonical review = latest review_creation_date, then answer timestamp, then review_id",
+      "action": ""
+    },
+    {
+      "section": "keys",
+      "check": "orders with more than one payment record",
+      "severity": "expected",
+      "count": 2961,
+      "denominator": 99441,
+      "share": 0.029776,
+      "note": "payments are summed per order before joining",
+      "action": ""
+    },
+    {
+      "section": "keys",
+      "check": "orders with more than one item",
+      "severity": "expected",
+      "count": 9803,
+      "denominator": 99441,
+      "share": 0.098581,
+      "note": "items are aggregated per order before joining",
+      "action": ""
+    },
+    {
+      "section": "keys",
+      "check": "orders with more than one seller",
+      "severity": "expected",
+      "count": 1278,
+      "denominator": 99441,
+      "share": 0.012852,
+      "note": "counted once in order-level KPIs and once per seller in seller statistics",
+      "action": ""
+    },
+    {
+      "section": "keys",
+      "check": "geolocation: points per zip prefix > 1",
+      "severity": "expected",
+      "count": 981148,
+      "denominator": 1000163,
+      "share": 0.980988,
+      "note": "aggregated to one row per prefix (median lat/lng)",
+      "action": ""
+    },
+    {
+      "section": "keys",
+      "check": "customer_unique_id with several customer_id",
+      "severity": "expected",
+      "count": 2997,
+      "denominator": 96096,
+      "share": 0.031188,
+      "note": "repeat customers; customer_id is per order",
+      "action": ""
+    },
+    {
+      "section": "referential",
+      "check": "order_items.order_id -> orders",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 112650,
+      "share": 0.0,
+      "note": "orphan child rows",
+      "action": "reported; orphans cannot enter order marts"
+    },
+    {
+      "section": "referential",
+      "check": "order_payments.order_id -> orders",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 103886,
+      "share": 0.0,
+      "note": "orphan child rows",
+      "action": "reported; orphans cannot enter order marts"
+    },
+    {
+      "section": "referential",
+      "check": "order_reviews.order_id -> orders",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 99224,
+      "share": 0.0,
+      "note": "orphan child rows",
+      "action": "reported; orphans cannot enter order marts"
+    },
+    {
+      "section": "referential",
+      "check": "orders.customer_id -> customers",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 99441,
+      "share": 0.0,
+      "note": "orphan child rows",
+      "action": "reported; orphans cannot enter order marts"
+    },
+    {
+      "section": "referential",
+      "check": "order_items.product_id -> products",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 112650,
+      "share": 0.0,
+      "note": "orphan child rows",
+      "action": "reported; orphans cannot enter order marts"
+    },
+    {
+      "section": "referential",
+      "check": "order_items.seller_id -> sellers",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 112650,
+      "share": 0.0,
+      "note": "orphan child rows",
+      "action": "reported; orphans cannot enter order marts"
+    },
+    {
+      "section": "referential",
+      "check": "customer zip prefix without coordinates",
+      "severity": "warning",
+      "count": 279,
+      "denominator": 99441,
+      "share": 0.002806,
+      "note": "distance features are NULL",
+      "action": "geo_missing indicator = 1"
+    },
+    {
+      "section": "referential",
+      "check": "seller zip prefix without coordinates",
+      "severity": "warning",
+      "count": 7,
+      "denominator": 3095,
+      "share": 0.002262,
+      "note": "distance features are NULL",
+      "action": "geo_missing indicator = 1"
+    },
+    {
+      "section": "referential",
+      "check": "product category without English translation",
+      "severity": "warning",
+      "count": 13,
+      "denominator": 32951,
+      "share": 0.000395,
+      "note": "categories: ['pc_gamer', 'portateis_cozinha_e_preparadores_de_alimentos']",
+      "action": "original Portuguese name is kept"
+    },
+    {
+      "section": "referential",
+      "check": "orders without items",
+      "severity": "warning",
+      "count": 775,
+      "denominator": 99441,
+      "share": 0.007794,
+      "note": "",
+      "action": "kept in mart_orders with NULL item value (not 0); excluded from ML"
+    },
+    {
+      "section": "referential",
+      "check": "orders without payments",
+      "severity": "warning",
+      "count": 1,
+      "denominator": 99441,
+      "share": 1e-05,
+      "note": "",
+      "action": "kept; payment value NULL"
+    },
+    {
+      "section": "referential",
+      "check": "orders without reviews",
+      "severity": "warning",
+      "count": 768,
+      "denominator": 99441,
+      "share": 0.007723,
+      "note": "",
+      "action": "kept; review metrics use reviewed orders only"
+    },
+    {
+      "section": "typing",
+      "check": "orders.order_purchase_timestamp not castable to TIMESTAMP",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 99441,
+      "share": 0.0,
+      "note": "",
+      "action": "value becomes NULL"
+    },
+    {
+      "section": "typing",
+      "check": "orders.order_approved_at not castable to TIMESTAMP",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 99441,
+      "share": 0.0,
+      "note": "",
+      "action": "value becomes NULL"
+    },
+    {
+      "section": "typing",
+      "check": "orders.order_delivered_carrier_date not castable to TIMESTAMP",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 99441,
+      "share": 0.0,
+      "note": "",
+      "action": "value becomes NULL"
+    },
+    {
+      "section": "typing",
+      "check": "orders.order_delivered_customer_date not castable to TIMESTAMP",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 99441,
+      "share": 0.0,
+      "note": "",
+      "action": "value becomes NULL"
+    },
+    {
+      "section": "typing",
+      "check": "orders.order_estimated_delivery_date not castable to TIMESTAMP",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 99441,
+      "share": 0.0,
+      "note": "",
+      "action": "value becomes NULL"
+    },
+    {
+      "section": "typing",
+      "check": "order_items.price not castable to DECIMAL(18,2)",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 112650,
+      "share": 0.0,
+      "note": "",
+      "action": "value becomes NULL"
+    },
+    {
+      "section": "typing",
+      "check": "order_items.freight_value not castable to DECIMAL(18,2)",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 112650,
+      "share": 0.0,
+      "note": "",
+      "action": "value becomes NULL"
+    },
+    {
+      "section": "typing",
+      "check": "order_items.order_item_id not castable to INTEGER",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 112650,
+      "share": 0.0,
+      "note": "",
+      "action": "value becomes NULL"
+    },
+    {
+      "section": "typing",
+      "check": "order_payments.payment_value not castable to DECIMAL(18,2)",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 103886,
+      "share": 0.0,
+      "note": "",
+      "action": "value becomes NULL"
+    },
+    {
+      "section": "typing",
+      "check": "order_payments.payment_installments not castable to INTEGER",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 103886,
+      "share": 0.0,
+      "note": "",
+      "action": "value becomes NULL"
+    },
+    {
+      "section": "typing",
+      "check": "order_reviews.review_score not castable to INTEGER",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 99224,
+      "share": 0.0,
+      "note": "",
+      "action": "value becomes NULL"
+    },
+    {
+      "section": "typing",
+      "check": "order_reviews.review_creation_date not castable to TIMESTAMP",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 99224,
+      "share": 0.0,
+      "note": "",
+      "action": "value becomes NULL"
+    },
+    {
+      "section": "typing",
+      "check": "products.product_weight_g not castable to DOUBLE",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 32951,
+      "share": 0.0,
+      "note": "",
+      "action": "value becomes NULL"
+    },
+    {
+      "section": "typing",
+      "check": "geolocation.geolocation_lat not castable to DOUBLE",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 1000163,
+      "share": 0.0,
+      "note": "",
+      "action": "value becomes NULL"
+    },
+    {
+      "section": "amounts",
+      "check": "negative item price",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 112650,
+      "share": 0.0,
+      "note": "",
+      "action": "flagged, kept"
+    },
+    {
+      "section": "amounts",
+      "check": "negative freight",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 112650,
+      "share": 0.0,
+      "note": "",
+      "action": "flagged, kept"
+    },
+    {
+      "section": "amounts",
+      "check": "negative payment",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 103886,
+      "share": 0.0,
+      "note": "",
+      "action": "flagged, kept"
+    },
+    {
+      "section": "amounts",
+      "check": "zero item price",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 112650,
+      "share": 0.0,
+      "note": "",
+      "action": "flagged, kept"
+    },
+    {
+      "section": "amounts",
+      "check": "zero freight (free shipping)",
+      "severity": "expected",
+      "count": 383,
+      "denominator": 112650,
+      "share": 0.0034,
+      "note": "free shipping is a valid business case",
+      "action": "flagged, kept"
+    },
+    {
+      "section": "amounts",
+      "check": "zero payment records",
+      "severity": "expected",
+      "count": 9,
+      "denominator": 103886,
+      "share": 8.7e-05,
+      "note": "mostly vouchers",
+      "action": "flagged, kept"
+    },
+    {
+      "section": "amounts",
+      "check": "payment_type = not_defined",
+      "severity": "warning",
+      "count": 3,
+      "denominator": 103886,
+      "share": 2.9e-05,
+      "note": "",
+      "action": "flagged, kept"
+    },
+    {
+      "section": "amounts",
+      "check": "payment_installments = 0",
+      "severity": "warning",
+      "count": 2,
+      "denominator": 103886,
+      "share": 1.9e-05,
+      "note": "",
+      "action": "flagged, kept"
+    },
+    {
+      "section": "temporal",
+      "check": "purchase_missing",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 99441,
+      "share": 0.0,
+      "note": "",
+      "action": "purchase date is the default time axis"
+    },
+    {
+      "section": "temporal",
+      "check": "approved_before_purchase",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 99441,
+      "share": 0.0,
+      "note": "",
+      "action": "excluded from ML (temporal_error)"
+    },
+    {
+      "section": "temporal",
+      "check": "carrier_before_purchase",
+      "severity": "warning",
+      "count": 166,
+      "denominator": 99441,
+      "share": 0.001669,
+      "note": "",
+      "action": "flag only; carrier date is not used in features or target"
+    },
+    {
+      "section": "temporal",
+      "check": "carrier_before_approval",
+      "severity": "warning",
+      "count": 1359,
+      "denominator": 99441,
+      "share": 0.013666,
+      "note": "",
+      "action": "flag only; carrier date is not used in features or target"
+    },
+    {
+      "section": "temporal",
+      "check": "delivered_before_carrier",
+      "severity": "warning",
+      "count": 23,
+      "denominator": 99441,
+      "share": 0.000231,
+      "note": "",
+      "action": "flag only; target uses delivered vs promised date"
+    },
+    {
+      "section": "temporal",
+      "check": "delivered_before_approval",
+      "severity": "warning",
+      "count": 61,
+      "denominator": 99441,
+      "share": 0.000613,
+      "note": "",
+      "action": "excluded from ML (temporal_error): prediction time is unreliable"
+    },
+    {
+      "section": "temporal",
+      "check": "delivered_before_purchase",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 99441,
+      "share": 0.0,
+      "note": "",
+      "action": "excluded from ML (temporal_error)"
+    },
+    {
+      "section": "temporal",
+      "check": "estimated_before_purchase",
+      "severity": "ok",
+      "count": 0,
+      "denominator": 99441,
+      "share": 0.0,
+      "note": "",
+      "action": "excluded from ML (temporal_error)"
+    },
+    {
+      "section": "temporal",
+      "check": "estimated_before_approval",
+      "severity": "warning",
+      "count": 10,
+      "denominator": 99441,
+      "share": 0.000101,
+      "note": "",
+      "action": "kept; promised_days <= 0 is a legitimate feature value"
+    },
+    {
+      "section": "temporal",
+      "check": "delivered_date_not_delivered_status",
+      "severity": "warning",
+      "count": 6,
+      "denominator": 99441,
+      "share": 6e-05,
+      "note": "",
+      "action": "outside the delivered cohort (status is authoritative)"
+    },
+    {
+      "section": "temporal",
+      "check": "delivered_status_no_date",
+      "severity": "warning",
+      "count": 8,
+      "denominator": 99441,
+      "share": 8e-05,
+      "note": "",
+      "action": "outside the delivered cohort; NOT treated as on time"
+    },
+    {
+      "section": "temporal",
+      "check": "delivered_status_not_approved",
+      "severity": "warning",
+      "count": 14,
+      "denominator": 99441,
+      "share": 0.000141,
+      "note": "",
+      "action": "excluded from ML (not_approved)"
+    },
+    {
+      "section": "geolocation",
+      "check": "points outside Brazil bounding box",
+      "severity": "warning",
+      "count": 42,
+      "denominator": 1000163,
+      "share": 4.2e-05,
+      "note": "",
+      "action": "dropped before the per-prefix median"
+    },
+    {
+      "section": "coverage",
+      "check": "orders purchased on/after data_cutoff 2018-09-03",
+      "severity": "expected",
+      "count": 20,
+      "denominator": 99441,
+      "share": 0.000201,
+      "note": "sparse tail after the effective snapshot",
+      "action": "excluded from ML splits by time boundaries"
+    },
+    {
+      "section": "coverage",
+      "check": "deliveries on/after data_cutoff 2018-09-03",
+      "severity": "expected",
+      "count": 53,
+      "denominator": 99441,
+      "share": 0.000533,
+      "note": "outcomes after the effective snapshot are treated as not observable",
+      "action": ""
+    }
+  ],
+  "missing_values": {
+    "orders": {
+      "order_approved_at": 160,
+      "order_delivered_carrier_date": 1783,
+      "order_delivered_customer_date": 2965
+    },
+    "order_items": {},
+    "order_payments": {},
+    "order_reviews": {
+      "review_comment_title": 87658,
+      "review_comment_message": 58256
+    },
+    "customers": {},
+    "sellers": {},
+    "products": {
+      "product_category_name": 610,
+      "product_name_lenght": 610,
+      "product_description_lenght": 610,
+      "product_photos_qty": 610,
+      "product_weight_g": 2,
+      "product_length_cm": 2,
+      "product_height_cm": 2,
+      "product_width_cm": 2
+    },
+    "geolocation": {},
+    "category_translation": {}
+  },
+  "statuses": [
+    {
+      "order_status": "delivered",
+      "n": 96478,
+      "has_approved": 96464,
+      "has_carrier": 96476,
+      "has_delivered": 96470,
+      "has_estimated": 96478
+    },
+    {
+      "order_status": "shipped",
+      "n": 1107,
+      "has_approved": 1107,
+      "has_carrier": 1107,
+      "has_delivered": 0,
+      "has_estimated": 1107
+    },
+    {
+      "order_status": "canceled",
+      "n": 625,
+      "has_approved": 484,
+      "has_carrier": 75,
+      "has_delivered": 6,
+      "has_estimated": 625
+    },
+    {
+      "order_status": "unavailable",
+      "n": 609,
+      "has_approved": 609,
+      "has_carrier": 0,
+      "has_delivered": 0,
+      "has_estimated": 609
+    },
+    {
+      "order_status": "invoiced",
+      "n": 314,
+      "has_approved": 314,
+      "has_carrier": 0,
+      "has_delivered": 0,
+      "has_estimated": 314
+    },
+    {
+      "order_status": "processing",
+      "n": 301,
+      "has_approved": 301,
+      "has_carrier": 0,
+      "has_delivered": 0,
+      "has_estimated": 301
+    },
+    {
+      "order_status": "created",
+      "n": 5,
+      "has_approved": 0,
+      "has_carrier": 0,
+      "has_delivered": 0,
+      "has_estimated": 5
+    },
+    {
+      "order_status": "approved",
+      "n": 2,
+      "has_approved": 2,
+      "has_carrier": 0,
+      "has_delivered": 0,
+      "has_estimated": 2
+    }
+  ],
+  "coverage": [
+    {
+      "field": "purchase",
+      "min": "2016-09-04 21:15:19",
+      "max": "2018-10-17 17:30:18"
+    },
+    {
+      "field": "approved",
+      "min": "2016-09-15 12:16:38",
+      "max": "2018-09-03 17:40:06"
+    },
+    {
+      "field": "carrier",
+      "min": "2016-10-08 10:34:01",
+      "max": "2018-09-11 19:48:28"
+    },
+    {
+      "field": "delivered",
+      "min": "2016-10-11 13:46:32",
+      "max": "2018-10-17 13:22:46"
+    },
+    {
+      "field": "estimated",
+      "min": "2016-09-30 00:00:00",
+      "max": "2018-11-12 00:00:00"
+    },
+    {
+      "field": "review_creation",
+      "min": "2016-10-02 00:00:00",
+      "max": "2018-08-31 00:00:00"
+    }
+  ],
+  "monthly": [
+    {
+      "month": "2016-09",
+      "orders": 4,
+      "delivered": 1,
+      "late": 1,
+      "late_rate": 1.0
+    },
+    {
+      "month": "2016-10",
+      "orders": 324,
+      "delivered": 265,
+      "late": 2,
+      "late_rate": 0.0075
+    },
+    {
+      "month": "2016-12",
+      "orders": 1,
+      "delivered": 1,
+      "late": 0,
+      "late_rate": 0.0
+    },
+    {
+      "month": "2017-01",
+      "orders": 800,
+      "delivered": 750,
+      "late": 22,
+      "late_rate": 0.0293
+    },
+    {
+      "month": "2017-02",
+      "orders": 1780,
+      "delivered": 1653,
+      "late": 49,
+      "late_rate": 0.0296
+    },
+    {
+      "month": "2017-03",
+      "orders": 2682,
+      "delivered": 2546,
+      "late": 116,
+      "late_rate": 0.0456
+    },
+    {
+      "month": "2017-04",
+      "orders": 2404,
+      "delivered": 2303,
+      "late": 151,
+      "late_rate": 0.0656
+    },
+    {
+      "month": "2017-05",
+      "orders": 3700,
+      "delivered": 3545,
+      "late": 106,
+      "late_rate": 0.0299
+    },
+    {
+      "month": "2017-06",
+      "orders": 3245,
+      "delivered": 3135,
+      "late": 95,
+      "late_rate": 0.0303
+    },
+    {
+      "month": "2017-07",
+      "orders": 4026,
+      "delivered": 3872,
+      "late": 108,
+      "late_rate": 0.0279
+    },
+    {
+      "month": "2017-08",
+      "orders": 4331,
+      "delivered": 4193,
+      "late": 122,
+      "late_rate": 0.0291
+    },
+    {
+      "month": "2017-09",
+      "orders": 4285,
+      "delivered": 4150,
+      "late": 182,
+      "late_rate": 0.0439
+    },
+    {
+      "month": "2017-10",
+      "orders": 4631,
+      "delivered": 4478,
+      "late": 187,
+      "late_rate": 0.0418
+    },
+    {
+      "month": "2017-11",
+      "orders": 7544,
+      "delivered": 7288,
+      "late": 904,
+      "late_rate": 0.124
+    },
+    {
+      "month": "2017-12",
+      "orders": 5673,
+      "delivered": 5513,
+      "late": 411,
+      "late_rate": 0.0746
+    },
+    {
+      "month": "2018-01",
+      "orders": 7269,
+      "delivered": 7069,
+      "late": 403,
+      "late_rate": 0.057
+    },
+    {
+      "month": "2018-02",
+      "orders": 6728,
+      "delivered": 6555,
+      "late": 926,
+      "late_rate": 0.1413
+    },
+    {
+      "month": "2018-03",
+      "orders": 7211,
+      "delivered": 7003,
+      "late": 1328,
+      "late_rate": 0.1896
+    },
+    {
+      "month": "2018-04",
+      "orders": 6939,
+      "delivered": 6798,
+      "late": 306,
+      "late_rate": 0.045
+    },
+    {
+      "month": "2018-05",
+      "orders": 6873,
+      "delivered": 6749,
+      "late": 443,
+      "late_rate": 0.0656
+    },
+    {
+      "month": "2018-06",
+      "orders": 6167,
+      "delivered": 6096,
+      "late": 71,
+      "late_rate": 0.0116
+    },
+    {
+      "month": "2018-07",
+      "orders": 6292,
+      "delivered": 6156,
+      "late": 208,
+      "late_rate": 0.0338
+    },
+    {
+      "month": "2018-08",
+      "orders": 6512,
+      "delivered": 6351,
+      "late": 393,
+      "late_rate": 0.0619
+    },
+    {
+      "month": "2018-09",
+      "orders": 16,
+      "delivered": 0,
+      "late": 0,
+      "late_rate": NaN
+    },
+    {
+      "month": "2018-10",
+      "orders": 4,
+      "delivered": 0,
+      "late": 0,
+      "late_rate": NaN
+    }
+  ],
+  "outcomes": [
+    {
+      "outcome": "on_time",
+      "n": 89936
+    },
+    {
+      "outcome": "late",
+      "n": 6534
+    },
+    {
+      "outcome": "not_delivered",
+      "n": 1729
+    },
+    {
+      "outcome": "canceled",
+      "n": 625
+    },
+    {
+      "outcome": "unavailable",
+      "n": 609
+    },
+    {
+      "outcome": "delivered_missing_date",
+      "n": 8
+    }
+  ],
+  "ml": {
+    "exclusions": [
+      {
+        "reason": "eligible",
+        "n": 96395,
+        "share": 0.969369
+      },
+      {
+        "reason": "not_delivered",
+        "n": 2825,
+        "share": 0.028409
+      },
+      {
+        "reason": "not_approved",
+        "n": 160,
+        "share": 0.001609
+      },
+      {
+        "reason": "temporal_error",
+        "n": 61,
+        "share": 0.000613
+      }
+    ],
+    "eligible": 96395,
+    "eligible_late_rate": 0.06777322475232118,
+    "delivered_cohort": 96470,
+    "delivered_late": 6534
+  }
+}
