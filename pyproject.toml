@@ -8,6 +8,7 @@ version = "1.0.0"
 description = "OrderPulse: delivery-delay analytics and approval-time risk queue on the Olist dataset"
 readme = "README.md"
 requires-python = ">=3.11,<3.14"
+license = {text = "MIT"}
 # Versions verified in .venv (Python 3.11.15, Windows 11) on 2026-10-12.
 dependencies = [
     "duckdb>=1.5,<1.6",

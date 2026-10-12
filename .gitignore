@@ -38,3 +38,6 @@ experiments/**/*.joblib
 experiments/**/dev_predictions/
 # Local MVP v1 snapshot (models, predictions, sha256 manifest) — kept on the author's machine only
 experiments/reliability_v2/mvp_v1_snapshot/
+
+# Original technical specification — not published (owner decision)
+OrderPulse_Technical_Specification.md

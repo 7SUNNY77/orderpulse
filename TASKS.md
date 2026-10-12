@@ -108,7 +108,9 @@
 | P4 | CI (GitHub Actions) на синтетических данных, маркер `integration` | [x] (не запускался на GitHub) |
 | P5 | `docs/github_publication.md`, `CHANGELOG.md` | [x] |
 | P6 | Локальный git (`main`) и первый коммит | [x] |
-| P7 | Лицензия кода, remote, push, тег, Release | [ ] владелец |
+| P7 | Лицензия кода (MIT, решение владельца) | [x] |
+| P8 | Remote и push | [~] |
+| P9 | Тег v1.0.0, Release, видео | [ ] после CI |
 
 ## Журнал
 
