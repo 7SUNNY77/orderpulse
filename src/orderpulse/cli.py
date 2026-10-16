@@ -1,7 +1,4 @@
-"""Command line entry point: ``python -m orderpulse <command>``.
-
-Equivalent to the Makefile targets, for environments without ``make``.
-"""
+"""Command line entry point: ``python -m orderpulse <command>``."""
 
 from __future__ import annotations
 

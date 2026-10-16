@@ -51,6 +51,6 @@ ui:
   min_segment_size: 30
   # Default daily queue size in the UI, chosen on development windows (reports/reliability_report.md).
   default_queue_k: 20
-  # Release v1.0 (owner decision): default model of the queue and the order card.
+  # Default model of the queue and the order card since release v1.0 (reports/decisions.md, D20).
   # CatBoost v1 stays available for comparison. Model artifacts are unchanged.
   default_model: logreg

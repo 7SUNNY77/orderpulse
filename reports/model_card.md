@@ -1,6 +1,6 @@
 # Model card: OrderPulse v1.0 — риск опоздания доставки на момент подтверждения
 
-**Основная модель релиза:** Logistic Regression v1 `logreg-fv1-77259041` (решение владельца, D20).
+**Основная модель релиза:** Logistic Regression v1 `logreg-fv1-77259041` (обоснование — D20 в журнале решений).
 **Сравнительная модель:** CatBoost v1 `catboost-fv1-9f3d2c8e`. **Baselines:** `rule_short_promise-fv1-a646aa2a`,
 `constant-fv1-599ed037`. Признаки `fv1`, данные `4179f0f63056937d`, seed 42.
 

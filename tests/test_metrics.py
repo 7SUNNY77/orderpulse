@@ -62,7 +62,7 @@ def test_ranking_metrics_basic():
     assert one_class["ap"] is None and one_class["roc_auc"] is None
 
 
-def test_topk_overall_example_from_spec():
+def test_topk_overall_worked_example():
     # 20 late among the 50 selected -> Precision@50 = 40%
     y = np.array([1] * 20 + [0] * 30 + [1] * 5 + [0] * 45)
     s = np.linspace(1, 0, 100)
